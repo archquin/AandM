@@ -20,55 +20,10 @@ from IPython.display import Image
 
 
 
-
-print('Select R/W')
-#a = input()
-
-print('which instr_num')
-
 #ship = input()# 
 ship = int(4)
 
-    
- 
-def merge(a, b, path=None, update=True):
-    if path is None: path = []
-    for key in b:
-        if key in a:
-            if isinstance(a[key], dict) and isinstance(b[key], dict):
-                merge(a[key], b[key], path + [str(key)])
-            elif a[key] == b[key]:
-                pass 
-            elif isinstance(a[key], list) and isinstance(b[key], list):
-                for idx, val in enumerate(b[key]):
-                    a[key][idx] = merge(a[key][idx], b[key][idx], path + [str(key), str(idx)], update=update)
-            elif update:
-                a[key] = b[key]
-            else:
-                raise Exception('Conflict at %s' % '.'.join(path + [str(key)]))
-        else:
-            a[key] = b[key]
-    return a
 
-a = 'r'
-if a == 'r':
-    
-    ship = int(ship)+1
-
-if a == 'w':
-    print('How many parts?')
-    txt = 'Instr'+str(ship)
-
-    print('line input -->key,value,""')
-    b = input()
-    lines = b.split(',')
-    with open(txt, 'w') as f:
-        for line in lines:
-            f.write(line)
-            f.write('\n')
-
-
-    
 ship = ship + 1
 clfc = []
 
@@ -162,8 +117,34 @@ Image('./test.png')
             
             
 '''
+The following function was found at 
+
+#https://stackoverflow.com/questions/69849956/python-how-to-process-complex-nested-dictionaries-efficiently 
+
+
+### Dictionary shreder
+def merge(a, b, path=None, update=True):
+    if path is None: path = []
+    for key in b:
+        if key in a:
+            if isinstance(a[key], dict) and isinstance(b[key], dict):
+                merge(a[key], b[key], path + [str(key)])
+            elif a[key] == b[key]:
+                pass 
+            elif isinstance(a[key], list) and isinstance(b[key], list):
+                for idx, val in enumerate(b[key]):
+                    a[key][idx] = merge(a[key][idx], b[key][idx], path + [str(key), str(idx)], update=update)
+            elif update:
+                a[key] = b[key]
+            else:
+                raise Exception('Conflict at %s' % '.'.join(path + [str(key)]))
+        else:
+            a[key] = b[key]
+    return a
+
 #############################################################################################################################################
-    
+
+
 def find_keys(dct):
     result = []
     for k, v in dct.items():
@@ -188,6 +169,7 @@ for i in kiks:
 ny= list(R.keys())
 
     
+#https://stackoverflow.com/questions/444296/how-to-efficiently-build-a-tree-from-a-flat-structure
 
 def build_tree(tree_list):
     if tree_list:
@@ -208,26 +190,6 @@ for j in ny :
             cc.append(i)
     ll.append(cc)
  
-    
- 
-def merge(a, b, path=None, update=True):
-    if path is None: path = []
-    for key in b:
-        if key in a:
-            if isinstance(a[key], dict) and isinstance(b[key], dict):
-                merge(a[key], b[key], path + [str(key)])
-            elif a[key] == b[key]:
-                pass 
-            elif isinstance(a[key], list) and isinstance(b[key], list):
-                for idx, val in enumerate(b[key]):
-                    a[key][idx] = merge(a[key][idx], b[key][idx], path + [str(key), str(idx)], update=update)
-            elif update:
-                a[key] = b[key]
-            else:
-                raise Exception('Conflict at %s' % '.'.join(path + [str(key)]))
-        else:
-            a[key] = b[key]
-    return a
 
 
 def supermerge(key,mdicts):
