@@ -19,6 +19,8 @@ import visualisedictionary as vd
 from IPython.display import Image
 
 
+# Mainly for demonstration
+# Remove the 3ple descritpion from the instruction and instead use format like Instr4,5
 
 #ship = input()# 
 ship = int(4)
